@@ -1,5 +1,6 @@
 import React from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import NavBar from './components/views/commons/NavBar';
 import Home from './components/views/pages/Home/Home';
 import Portfolio from './components/views/pages/Portfolio/Portfolio';
 import Community from './components/views/pages/Community/Community';
@@ -9,9 +10,9 @@ import NotFound from './components/views/pages/NotFound/NotFound';
 
 function App() {
   return (
-    <div>
     <>
     <Router>
+      <NavBar />
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/portfolio" component={Portfolio} />
@@ -21,7 +22,6 @@ function App() {
       </Switch>
     </Router>
     </>
-    </div>
   );
 }
 
