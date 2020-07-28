@@ -9,19 +9,20 @@ import NotFound from './components/views/pages/NotFound/NotFound';
 
 function App() {
   return (
-    <div>
-      <>
-    <Router>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/portfolio" component={Portfolio} />
-        <Route exact path="/community" component={Community} />
-        <Route exact path="/mypage" component={MyPage} />
-        <Route component={NotFound} />
-      </Switch>
-    </Router>
-    </>
-    </div>
+    <div>develop?</div>
+    // <div>
+    // <>
+    // <Router>
+    //   <Switch>
+    //     <Route exact path="/" component={Home} />
+    //     <Route exact path="/portfolio" component={Portfolio} />
+    //     <Route exact path="/community" component={Community} />
+    //     <Route exact path="/mypage" component={MyPage} />
+    //     <Route component={NotFound} />
+    //   </Switch>
+    // </Router>
+    // </>
+    // </div>
   );
 }
 
