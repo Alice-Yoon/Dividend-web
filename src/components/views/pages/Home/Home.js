@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../../commons/Header';
-import GridCards from '../../commons/GridCards';
+import GridCards from './Section/GridCards';
 import Calendar from './Section/Calendar';
 
+import {gridCardDummy} from '../../../non-views/dummy/gridCardDummy';
+
 function Home() {
+
+    const [gridCardData, setGridCardData] = useState([]);
+
+    useEffect(() => {
+        setGridCardData(gridCardDummy);
+    }, []);
+
+    console.log("gridCardData", gridCardData)
+
+    
     
     const homeStyle = {
         // border: '3px solid aqua',
-        width: '85%',
+        width: '90%',
         margin: '0 auto'
     }
 
@@ -24,7 +36,10 @@ function Home() {
 
     const rightStyle = {
         border: '1px solid pink',
-        flex: 1
+        flex: 1,
+        backgroundColor: 'lightgray',
+        padding: '15px 10px',
+        overflow: 'auto'
     }
 
     return (
@@ -38,8 +53,9 @@ function Home() {
                     <Calendar />
                 </section>
                 <section style={rightStyle}>
-                    right
-                    <GridCards />
+                    {gridCardData ? gridCardData.map(data => (
+                        <GridCards data={data} />
+                    )) : null}
                 </section>
             </main>
         </div>

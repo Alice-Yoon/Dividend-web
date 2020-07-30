@@ -32,7 +32,7 @@ function NavBar() {
     }
 
     const onClickSearchIcon = () => {
-        console.log("search icon clicked!")
+        console.log("search icon clicked!");
     }
 
     return (
@@ -41,6 +41,7 @@ function NavBar() {
                 <Link to="/" style={listStyle} active="true">Home</Link>
                 <Link to="/community" style={listStyle}>Community</Link>
                 <Link to="/mypage" style={listStyle}>MyPage</Link>
+                <Link to="/search" style={listStyle}>Search</Link>
             </div>
             <div>
                 <BellOutlined style={iconStyle} onClick={onClickBellIcon} />
