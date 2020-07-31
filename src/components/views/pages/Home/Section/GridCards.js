@@ -7,7 +7,7 @@ function GridCards({ data }) {
     // isDividendDate ? '배당지급일' : '배당락일 D-3'
     const [isDividendDate, setIsDividendDate] = useState(true);
 
-    // owned ? '보유-clam' : 'tag_filled
+    // owned ? '보유-clam' : 'tag_filled'
     const [isOwned, setIsOwned] = useState(true);
 
     useEffect(() => {
@@ -159,12 +159,6 @@ function GridCards({ data }) {
 
                 {endSectionContents()}
 
-                {/* 조개 | 태그 */}  
-                {/* <img src={clam} alt="clam" style={iconStyle} /> */}
-                {/* 보유금액 - $97.26 */}
-                {/* <span>$ 97.26</span> */}
-                {/* 보유 */}
-                {/* <small>보유</small> */}
             </div>
         </div>
     )

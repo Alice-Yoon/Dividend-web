@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import VerticalRoundBar from './charts/VerticalRoundBar';
+import ProgressBar from './charts/ProgressBar';
 import joodal from '../../non-views/img/joodal.png';
 
-function Header() {
+function Header({progressData}) {
 
     const [nickName, setNickName] = useState('주린이');
     const [month, setMonth] = useState('7');
     const [price, setPrice] = useState('10,000');
-
 
     const headerStyle = {
         // border: '1px solid red',
@@ -50,7 +49,7 @@ function Header() {
                 <span style={pointLetterStyle}>{price}원</span> 입니다.
             </p>
 
-            <VerticalRoundBar />
+            <ProgressBar progressData={progressData} />
 
             <img src={joodal} alt="joodal" style={joodalStyle} />
         </div>

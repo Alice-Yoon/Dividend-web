@@ -5,6 +5,11 @@ import Calendar from './Section/Calendar';
 
 import {gridCardDummy} from '../../../non-views/dummy/gridCardDummy';
 
+
+// Progress Bar Dummy Data
+const testDataForProgressBar = {goal: 100, current: 40}
+
+
 function Home() {
 
     const [gridCardData, setGridCardData] = useState([]);
@@ -44,7 +49,7 @@ function Home() {
 
     return (
         <div style={homeStyle}>
-            <Header />
+            <Header progressData={testDataForProgressBar} />
             
             {/* Home Page */}
             <main style={mainStyle}>
