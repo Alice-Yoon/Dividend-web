@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { SearchOutlined, BellOutlined } from '@ant-design/icons';
 
-function NavBar() {
+function NavBar({openSearchModal, Home}) {
 
     const navBarStyle = {
         // border: '1px solid blue',
@@ -31,24 +31,34 @@ function NavBar() {
         console.log("bell icon clicked!")
     }
 
-    const onClickSearchIcon = () => {
-        console.log("search icon clicked!");
-    }
+    if (Home) {
+        return (
+            <div style={navBarStyle}>
+                <div>
+                    <Link to="/" style={listStyle} active="true">Home</Link>
+                    <Link to="/community" style={listStyle}>Community</Link>
+                    <Link to="/mypage" style={listStyle}>MyPage</Link>
+                    {/* <Link to="/search" style={listStyle}>Search</Link> */}
+                </div>
+                <div>
+                    <BellOutlined style={iconStyle} onClick={onClickBellIcon} />
+                    <SearchOutlined style={iconStyle} onClick={openSearchModal} />
+                </div>
+            </div>
+        )
 
-    return (
-        <div style={navBarStyle}>
-            <div>
-                <Link to="/" style={listStyle} active="true">Home</Link>
-                <Link to="/community" style={listStyle}>Community</Link>
-                <Link to="/mypage" style={listStyle}>MyPage</Link>
-                <Link to="/search" style={listStyle}>Search</Link>
+    } else {
+        return (
+            <div style={navBarStyle}>
+                <div>
+                    <Link to="/" style={listStyle} active="true">Home</Link>
+                    <Link to="/community" style={listStyle}>Community</Link>
+                    <Link to="/mypage" style={listStyle}>MyPage</Link>
+                    {/* <Link to="/search" style={listStyle}>Search</Link> */}
+                </div>
             </div>
-            <div>
-                <BellOutlined style={iconStyle} onClick={onClickBellIcon} />
-                <SearchOutlined style={iconStyle} onClick={onClickSearchIcon} />
-            </div>
-        </div>
-    )
+        )
+    }
 }
 
 export default NavBar;

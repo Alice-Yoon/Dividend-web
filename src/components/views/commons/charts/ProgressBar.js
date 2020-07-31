@@ -49,9 +49,9 @@ function ProgressBar({progressData}) {
         fontSize: '20px',
         color: '#fff',
         transition: 'width 1s ease-in-out',
-        webkitTransition: 'width 1s ease-in-out',
-        mozTransition: 'width 1s ease-in-out',
-        oTransition: 'width 1s ease-in-out'
+        WebkitTransition: 'width 1s ease-in-out',
+        MozTransition: 'width 1s ease-in-out',
+        OTransition: 'width 1s ease-in-out'
     }
 
     const barStyle_withoutData= {
