@@ -1,59 +1,46 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import CarouselSlider from '../commons/CarouselSlider';
 import ProgressBar from './charts/ProgressBar';
 import joodal from '../../non-views/img/joodal.png';
 
-function Header({progressData}) {
+function Header(props) {
 
-    const [nickName, setNickName] = useState('주린이');
-    const [month, setMonth] = useState('7');
-    const [price, setPrice] = useState('10,000');
+    const {progressData} = props;
 
-    const headerStyle = {
-        // border: '1px solid red',
-        // borderBottom: '1px solid darkgray',
-        padding: '30px',
-        fontSize: '20px',
-        paddingBottom: '50px',
-        position: 'relative'
+    const [showCard, setShowCard] = useState(true);
+
+    const onClickToggleHeader = () => {
+        // true - 주린이님~ || false - 7월 요약
+        setShowCard(!showCard);
     }
 
-    const sentenceStyle = {
-        marginBottom: '30px'
-    }
-
-    const nickNameStyle = {
-        fontWeight: 'bold',
-        fontSize: '32px'
-    }
-
-    const pointLetterStyle = {
-        fontWeight: 'bold',
-        fontSize: '25px',
-        color: '#5e5e5e'
-    }
-
-    const joodalStyle = {
-        // border: '1px solid blue',
-        width: '180px',
-        height: '180px',
-        position: 'absolute',
-        top: '30px',
-        right: '50px',
-    }
-
+    
     return (
-        <div style={headerStyle}>
-            <p><span style={nickNameStyle}>{nickName}</span>님!</p>
-            <p style={sentenceStyle}>
-                <span style={pointLetterStyle}>{month}월 배당금</span>은 
-                <span style={pointLetterStyle}>{price}원</span> 입니다.
-            </p>
-
+        <div className={props.className}>
+            
+            <CarouselSlider showCard={showCard} />
             <ProgressBar progressData={progressData} />
 
-            <img src={joodal} alt="joodal" style={joodalStyle} />
+            <img src={joodal} alt="joodal" className="joodalStyle" onClick={onClickToggleHeader} />
         </div>
     )
 }
 
-export default Header;
+export default styled(Header)`
+    padding: 30px;
+    font-size: 20px;
+    padding-bottom: 50px;
+    position: relative;
+    & {
+        .joodalStyle {
+            width: 180px;
+            height: 180px;
+            position: absolute;
+            top: 30px;
+            right: 50px;
+            cursor: pointer;
+        }
+    }
+
+`;

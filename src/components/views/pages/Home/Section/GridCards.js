@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+
 import clam from '../../../../non-views/img/clam.png';
 import tag_filled from '../../../../non-views/img/tag_filled.png';
 
-function GridCards({ data }) {
+function GridCards(props) {
+
+    const data = props.data;
 
     // isDividendDate ? '배당지급일' : '배당락일 D-3'
     const [isDividendDate, setIsDividendDate] = useState(true);
@@ -18,17 +22,21 @@ function GridCards({ data }) {
     // 현재는 dummy data 가져옴
     // console.log("inside grid", data);
 
+    const onClickGridCards = () => {
+        console.log("grid cards clicked!");
+    }
+
     const endSectionContents = () => {
         if(isOwned) {
             return ( 
             <>
-            <img src={clam} alt="clam" style={iconStyle_clam} />
+            <img src={clam} alt="clam" className="iconStyle_clam" />
             <span>$ 97.26</span>
             <small>보유</small>
             </>
             );
         } else {
-            return <img src={tag_filled} alt="tag" style={iconStyle_tag} />
+            return <img src={tag_filled} alt="tag" className="iconStyle_tag" />
         }
     }
 
@@ -41,127 +49,95 @@ function GridCards({ data }) {
         padding: '10px 15px',
         display: 'flex',
         marginBottom: '20px',
-        // width: '85%'
     }
-
-    // Section Styles - left, right, end
-    const leftSectionStyle = {
-        // border: '2px solid red',
-        flex: 4,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItem: 'center',
-        justifyContent: 'center'
-    }
-    
-    const rightSectionStyle = {
-        // border: '2px solid green',
-        flex: 4,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItem: 'center',
-        justifyContent: 'center'
-    }
-
-    const endSectionStyle = {
-        // border: '2px solid yellow',
-        flex: 2,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItem: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-        position: 'relative'
-    }
-
-    // Left Section contents styles
-    const smallBoxStyle = {
-        border: '1px solid gray',
-        padding: '3px 5px',
-        fontSize: '0.8rem',
-        color: 'gray'
-    }
-
-    const companyNameStyle = {
-        // border: '1px solid blue',
-        fontSize: '1.6rem',
-        fontWeight: 'bold',
-        margin: '0',
-        marginTop: '3px'
-    }
-
-    // Right Section contents styles
-    const rightSection_Top = {
-        // border: '1px solid red',
-        paddingRight: '20px',
-        fontSize: '0.8rem',
-        display: 'flex',
-        justifyContent: 'space-between'
-    }
-
-    const rightSection_Bottom = {
-        // border: '1px solid blue',   
-    }
-
-    const expected_dividend = {
-        fontSize: '2.5rem',
-        fontWeight: 'bold',
-        margin: '0',
-        // textAlign: 'center'
-    }
-
-    // End Section contents styles
-    const iconStyle_clam = {
-        // border: '1px solid green',
-        width: '40px',
-        height: '30px',
-        position: 'relative',
-        left: '50%',
-        transform: 'translateX(-50%)'
-    }
-
-    const iconStyle_tag = {
-        // border: '1px solid red',
-        width: '55px',
-        height: '60px',
-        position: 'relative',
-        left: '50%',
-        transform: 'translateX(-50%)'
-    }
-
-
 
     return (
-        <div style={cardContainerStyle}>
-            <div style={leftSectionStyle}>
-                {/* 배당락일 | 배당지급일 */}
-                <div>
-                    <span style={smallBoxStyle}>
+        <div className={props.className}>
+            <div style={cardContainerStyle} onClick={onClickGridCards}>
+                <div className="leftSectionStyle">
+                    {/* 배당락일 | 배당지급일 */}
+                    <span className="smallBoxStyle">
                         {isDividendDate ? '배당지급일' : '배당락일 D-3'}
                     </span>
+                    {/* 회사 이름 */}
+                    <p className="companyNameStyle">Nike Inc</p>
                 </div>
-                {/* 회사 이름 */}
-                <p style={companyNameStyle}>Nike Inc</p>
-            </div>
-            <div style={rightSectionStyle}>
-                <div style={rightSection_Top}>
-                    {/* 배당률 ~% */}
-                    <span>배당률 5.2%</span>
-                    {/* 예상 배당금 */}
-                    <span>예상 배당금</span>
+                <div className="rightSectionStyle">
+                    <div className="rightSection_Top">
+                        {/* 배당률 ~% */}
+                        <span>배당률 5.2%</span>
+                        {/* 예상 배당금 */}
+                        <span>예상 배당금</span>
+                    </div>
+                    <div className="rightSection_Bottom">
+                        {/* $ 2.7 */}
+                        <p className="expected_dividend">$ 2.7</p>
+                    </div>
                 </div>
-                <div style={rightSection_Bottom}>
-                    {/* $ 2.7 */}
-                    <p style={expected_dividend}>$ 2.7</p>
-                </div>
-            </div>
-            <div style={endSectionStyle}>
+                <div className="endSectionStyle">
 
-                {endSectionContents()}
+                    {endSectionContents()}
 
+                </div>
             </div>
         </div>
     )
 }
 
-export default GridCards;
+export default styled(GridCards)`
+    & {
+        .leftSectionStyle {
+            /* border: 1px solid red; */
+            flex: 4;
+            .smallBoxStyle {
+                border: 1px solid gray;
+                padding: 3px 5px;
+                font-size: 0.8rem;
+                color: gray;
+            }
+            .companyNameStyle {
+                font-size: 1.6rem;
+                font-weight: bold;
+                margin: 0;
+                margin-top: 3px;
+            }
+        }
+        .rightSectionStyle {
+            /* border: 1px solid blue; */
+            flex: 4;
+            .rightSection_Top {
+                padding-right: 20px;
+                font-size: 0.8rem;
+                display: flex;
+                justify-content: space-between;
+            }
+            .rightSection_Bottom {
+
+            }
+            .expected_dividend {
+                font-size: 2.5rem;
+                font-weight: bold;
+                margin: 0;
+            }
+        }
+        .endSectionStyle {
+            /* border: 1px solid green; */
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+        .iconStyle_clam {
+            width: 40px;
+            height: 30px;
+        }
+        .iconStyle_tag {
+            width: 55px;
+            height: 60px;
+        }
+
+    }
+`;

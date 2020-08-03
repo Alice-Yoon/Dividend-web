@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import NavBar from '../../commons/NavBar';
 import Header from '../../commons/Header';
 import GridCards from './Section/GridCards';
@@ -9,7 +10,7 @@ import {gridCardDummy} from '../../../non-views/dummy/gridCardDummy';
 
 
 // Progress Bar Dummy Data
-const testDataForProgressBar = {goal: 100, current: 40}
+const testDataForProgressBar = {goal: 100, current: 60}
 
 
 function Home() {
@@ -78,7 +79,7 @@ function Home() {
         flex: 1,
         backgroundColor: 'lightgray',
         padding: '15px 10px',
-        overflow: 'auto'
+        overflow: 'auto',
     }
 
     const gridTabAreaStyle = {
