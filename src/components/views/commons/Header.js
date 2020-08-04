@@ -18,32 +18,43 @@ function Header(props) {
     
     return (
         <div className={props.className}>
-            
-            <CarouselSlider showCard={showCard} />
-            <ProgressBar progressData={progressData} />
 
-            <img src={joodal} alt="joodal" className="joodalStyle" onClick={onClickToggleHeader} />
+            <div className="card-section">
+                <CarouselSlider showCard={showCard} />
+                <ProgressBar progressData={progressData} />
+                <img src={joodal} alt="joodal" className="joodalStyle" onClick={onClickToggleHeader} />
+            </div>
         </div>
     )
 }
 
 export default styled(Header)`
-    background-color: #fff;
-    border: 1px solid gray;
-    border-radius: 8px;
-    box-shadow: 0 0 3px rgba(0,0,0,0.5);
-    padding: 30px;
+    /* border: 1px solid red; */
     font-size: 20px;
-    padding-bottom: 50px;
-    position: relative;
     margin: 50px 0;
+    padding: 0 30px;
+    display: flex;
     & {
+        .card-section {
+            border: 1px solid gray;
+            border-radius: 8px;
+            box-shadow: 0 0 3px rgba(0,0,0,0.5);
+            background-color: #fff;
+            padding: 30px;
+            width: 50%;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
         .joodalStyle {
-            width: 180px;
-            height: 180px;
+            /* border: 1px solid blue; */
+            width: 150px;
+            height: 150px;
             position: absolute;
             top: 30px;
-            right: 50px;
+            right: 30px;
             cursor: pointer;
         }
     }

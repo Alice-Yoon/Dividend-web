@@ -70,7 +70,7 @@ export default styled(ProgressBar)`
     border-radius: 10px;
     background-color: #dee3e2;
     height: 20px;
-    width: 60%;
+    width: 95%;
     margin-top: 10px;
     font-size: 15px;
     text-align: right;
