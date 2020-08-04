@@ -28,10 +28,15 @@ function Header(props) {
 }
 
 export default styled(Header)`
+    background-color: #fff;
+    border: 1px solid gray;
+    border-radius: 8px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.5);
     padding: 30px;
     font-size: 20px;
     padding-bottom: 50px;
     position: relative;
+    margin: 50px 0;
     & {
         .joodalStyle {
             width: 180px;

@@ -1,21 +1,21 @@
 import React from 'react';
+import styled from 'styled-components';
+
 import NavBar from '../../commons/NavBar';
 
-function MyPage() {
+function MyPage(props) {
 
-    const myPageStyle = {
-        // border: '3px solid aqua',
-        width: '90%',
-        margin: '0 auto'
-    }
 
 
     return (
-        <div style={myPageStyle}>
+        <div className={props.className}>
             <NavBar />
             My Page
         </div>
     )
 }
 
-export default MyPage;
+export default styled(MyPage)`
+    width: 90%;
+    margin: 0 auto;
+`;

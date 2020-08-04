@@ -1,20 +1,19 @@
 import React from 'react';
+import styled from 'styled-components';
 import NavBar from '../../commons/NavBar';
 
-function Community() {
+function Community(props) {
 
-    const communityStyle = {
-        // border: '3px solid aqua',
-        width: '90%',
-        margin: '0 auto'
-    }
 
     return (
-        <div style={communityStyle}>
+        <div className={props.className}>
             <NavBar />
             Community Page
         </div>
     )
 }
 
-export default Community;
+export default styled(Community)`
+    width: 90%;
+    margin: 0 auto;
+`;

@@ -1,10 +1,24 @@
 import React from 'react';
-import SearchInput from '../../commons/SearchInput';
+import styled from 'styled-components';
 
+import SearchInput from '../../commons/SearchInput';
 import SearchResultCards from './Section/SearchResultCards';
 import DefaultCards from './Section/DefaultCards';
 
-function Search({toggleSearch, closeSearchModal}) {
+function Search(props) {
+
+    const { toggleSearch, closeSearchModal } = props;
+
+   
+    const onClickToClose = (e) => {
+
+        const target = e.target.id;
+
+        if(target === 'container' || target === 'closeBtn') {
+            closeSearchModal();
+        }
+    }
+    
 
     const containerStyle = {
         position: 'fixed',
@@ -18,53 +32,46 @@ function Search({toggleSearch, closeSearchModal}) {
         justifyContent: 'center',
     }
 
-    const modalStyle = {
-        borderRadius: '10px',
-        width: '65%',
-        height: '65%',
-        backgroundColor: '#fff',
-    }
-
-    const closeBtnAreaStyle = {
-        // border: '1px solid blue',
-        height: '20px',
-        position: 'relative'
-    }
-
-    const closeBtnStyle = {
-        cursor: 'pointer',
-        // border: '1px solid red',
-        textAlign: 'end',
-        paddingRight: '10px',
-        position: 'absolute',
-        top: '8px',
-        right: '5px'
-    }
-
-    const onClickToClose = (e) => {
-
-        const target = e.target.id;
-
-        if(target === 'container' || target === 'closeBtn') {
-            closeSearchModal();
-        }
-    }
-
 
     return (
+        <div className={props.className}>
             <div id="container" style={containerStyle} onClick={onClickToClose}>
-                <div style={modalStyle}>
-                    <div style={closeBtnAreaStyle}>
-                        <span id="closeBtn" onClick={onClickToClose} style={closeBtnStyle}>X</span>
+                <div className="modalStyle">
+                    <div className="closeBtnAreaStyle">
+                        <span id="closeBtn" onClick={onClickToClose} className="closeBtnStyle">X</span>
                     </div>
                     <SearchInput />
                     <DefaultCards />
                     <SearchResultCards />
                 </div>
             </div>
+        </div>
     )
 
 }
 
 
-export default Search
+export default styled(Search)`
+    & {
+        .modalStyle {
+            border-radius: 10px;
+            width: 65%;
+            height: 65%;
+            background-color: #fff;
+        }
+        .closeBtnAreaStyle {
+            /* border: 1px solid blue; */
+            height: 20px;
+            position: relative;
+            > .closeBtnStyle {
+                cursor: pointer;
+                /* border: 1px solid red; */
+                text-align: end;
+                padding-right: 10px;
+                position: absolute;
+                top: 8px;
+                right: 5px;
+            }
+        }
+    }
+`;

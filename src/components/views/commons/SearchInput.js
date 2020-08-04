@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import search from '../../non-views/img/search.png'
+import styled from 'styled-components';
 
-function SearchInput() {
+function SearchInput(props) {
 
     const [inputValue, setInputValue] = useState('');
 
@@ -10,30 +10,29 @@ function SearchInput() {
         setInputValue(value)
     }
 
-    // Styles
-    const containerStyle = {
-        // border: '1px solid red',
-        textAlign: 'center',
-        marginTop: '20px',
+    const onSearch = (e) => {
+        e.preventDefault();
+        console.log("search input submitted!", inputValue);
+        setInputValue('');
     }
 
-    const inputStyle = {
-        width: '80%',
-        padding: '10px',
-    }
-
-    // const searchIconStyle = {
-    //     width: '30px',
-    //     height: '30px'
-    // }
-
-  
     return (
-        <div style={containerStyle}>
-            <input type='text' placeholder="검색어를 입력하세요." value={inputValue} onChange={onChangeInputValue} style={inputStyle} />
-            {/* <img src={search} alt="search" style={searchIconStyle} /> */}
+        <div className={props.className}>
+            <form onSubmit={onSearch} >
+                <input type='text' placeholder="검색어를 입력하세요." value={inputValue} onChange={onChangeInputValue} className="inputStyle" autoFocus="true" />
+            </form>
         </div>
     )
 }
 
-export default SearchInput;
+export default styled(SearchInput)`
+    /* border: 1px solid red; */
+    text-align: center;
+    margin-top: 20px;
+    & {
+        .inputStyle {
+            width: 80%;
+            padding: 10px;
+        }
+    }
+`;

@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 
 import NavBar from '../../commons/NavBar';
 import Header from '../../commons/Header';
 import GridCards from './Section/GridCards';
-import Calendar from './Section/Calendar';
+// import Calendar from './Section/Calendar';
 import Search from '../Search/Search';
 
 import {gridCardDummy} from '../../../non-views/dummy/gridCardDummy';
+import calendar_dummy from '../../../non-views/img/calendar_dummy.png';
 
 
 // Progress Bar Dummy Data
 const testDataForProgressBar = {goal: 100, current: 60}
 
 
-function Home() {
+function Home(props) {
 
     // console.log('grid data', gridCardDummy)
 
@@ -22,7 +24,9 @@ function Home() {
     const [toggleTab, setToggleTab] = useState();
 
     useEffect(() => {
+
         setGridCardData(gridCardDummy);
+
     }, []);
 
     // console.log("gridCardData", gridCardData)
@@ -56,68 +60,23 @@ function Home() {
         }
     }
     
-    
-    const homeStyle = {
-        // border: '3px solid aqua',
-        width: '90%',
-        margin: '0 auto'
-    }
-
-    const mainStyle = {
-        border: '1px solid green',
-        display: 'flex',
-        height: '100vh'
-    }
-
-    const leftStyle = {
-        border: '1px solid yellow',
-        flex: 1.5
-    }
-
-    const rightStyle = {
-        border: '1px solid pink',
-        flex: 1,
-        backgroundColor: 'lightgray',
-        padding: '15px 10px',
-        overflow: 'auto',
-    }
-
-    const gridTabAreaStyle = {
-        // border: '1px solid red',
-        padding: '10px',
-        marginBottom: '10px',
-        display: 'flex',
-        justifyContent: 'flex-end',
-        alignItems: 'center'
-    }
-
-    const tabBtnStyle = {
-        // border: '1px solid blue',
-        cursor: 'pointer',
-        backgroundColor: 'black',
-        borderRadius: '10px',
-        marginLeft: '8px',
-        padding: '3px 13px',
-        color: '#fff',
-        fontSize: '14px'
-    }
 
     return (
-        <div style={homeStyle}>
+        <div className={props.className}>
             <NavBar openSearchModal={openSearchModal} Home />
             <Header progressData={testDataForProgressBar} />
             
             {/* Home Page */}
-            <main style={mainStyle}>
-                <section style={leftStyle}>
-                    left
-                    <Calendar />
+            <main className="mainStyle">
+                <section className="leftStyle">
+                    <img src={calendar_dummy} alt="calendar_dummy" className="dummyCalendarStyle" />
+                    {/* <Calendar /> */}
                 </section>
-                <section style={rightStyle}>
-                    <div style={gridTabAreaStyle}>
-                        <span id="tab_all" style={tabBtnStyle} onClick={onClickTab}>All</span>
-                        <span id="tab_owned" style={tabBtnStyle} onClick={onClickTab}>보유주식</span>
-                        <span id="tab_interested" style={tabBtnStyle} onClick={onClickTab}>관심주식</span>
+                <section className="rightStyle">
+                    <div className="gridTabAreaStyle">
+                        <span id="tab_all" className="tabBtnStyle" onClick={onClickTab}>All</span>
+                        <span id="tab_owned" className="tabBtnStyle" onClick={onClickTab}>보유주식</span>
+                        <span id="tab_interested" className="tabBtnStyle" onClick={onClickTab}>관심주식</span>
                     </div>
                     {gridCardData ? gridCardData.map(data => (
                         <GridCards data={data} />
@@ -130,4 +89,51 @@ function Home() {
     )
 }
 
-export default Home;
+export default styled(Home)`
+    /* border: 3px solid aqua; */
+    width: 90%;
+    margin: 0 auto;
+    & {
+        .mainStyle {
+
+            /* border: 1px solid green; */
+            display: flex;
+            height: 100vh;
+
+            .leftStyle {
+                /* border: 1px solid yellow; */
+                padding: 15px;
+                flex: 1.5;
+            }
+            .rightStyle {
+                /* border: 1px solid pink; */
+                /* background-color: lightgray; */
+                flex: 1;
+                padding: 15px 10px;
+                overflow: auto;
+            }
+            .gridTabAreaStyle {
+                /* border: 1px solid red; */
+                padding: 10px;
+                margin-bottom: 10px;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+            }
+            .tabBtnStyle {
+                /* border: 1px solid blue; */
+                cursor: pointer;
+                background-color: black;
+                border-radius: 10px;
+                margin-left: 8px;
+                padding: 3px 13px;
+                color: #fff;
+                font-size: 14px;
+            }
+        }
+        .dummyCalendarStyle {
+                width: 100%;
+                height: 100%;
+            }
+    }
+`;

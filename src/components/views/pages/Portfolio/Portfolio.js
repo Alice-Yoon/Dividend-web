@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 
 function Portfolio() {
     return (
@@ -8,4 +9,6 @@ function Portfolio() {
     )
 }
 
-export default Portfolio;
+export default styled(Portfolio)`
+
+`;

@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import styled from 'styled-components';
 
 function Calendar() {
     return (
@@ -8,4 +9,6 @@ function Calendar() {
     )
 }
 
-export default Calendar;
+export default styled(Calendar)`
+
+`;

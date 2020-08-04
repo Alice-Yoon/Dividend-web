@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 
 
-function ProgressBar({progressData}) {
+function ProgressBar(props) {
 
     const [goalDividend, setGoalDividend] = useState(0);
     const [currentDividend, setCurrentDividend] = useState(0);
     const [completedPercent, setCompletedPercent] = useState(0);
     
-    const { goal, current } = progressData;
+    const { goal, current } = props.progressData;
 
     useEffect(() => {
 
@@ -16,23 +17,6 @@ function ProgressBar({progressData}) {
         setCompletedPercent(current/goal*100);
 
     }, []);
-
-    // const titleStyle = {
-    //     fontSize: '15px',
-    // }
-
-    const containerStyle = {
-        border: '1px solid black',
-        borderRadius: '10px',
-        backgroundColor: '#dee3e2',
-        height: '20px',
-        width: '60%',
-        marginTop: '10px',
-        fontSize: '15px',
-        textAlign: 'right',
-        padding: '2px 10px',
-        position: 'relative',
-    }
 
     const barStyle = {
         // border: '1px solid red',
@@ -72,15 +56,24 @@ function ProgressBar({progressData}) {
 
 
     return (
-        <div>
-            <div style={containerStyle}>
-                <div style={completedPercent === 0 || !completedPercent ? barStyle_withoutData : barStyle}>
-                    <span>${currentDividend === 0 || !currentDividend ? '0' : currentDividend}</span>
-                </div>
-                <span>내 목표 ${goalDividend === 0 || !goalDividend ? '0' : goalDividend}</span>
+        <div className={props.className}>
+            <div style={completedPercent === 0 || !completedPercent ? barStyle_withoutData : barStyle}>
+                <span>${currentDividend === 0 || !currentDividend ? '0' : currentDividend}</span>
             </div>
+            <span>내 목표 ${goalDividend === 0 || !goalDividend ? '0' : goalDividend}</span>
         </div>
     )
 }
 
-export default ProgressBar;
+export default styled(ProgressBar)`
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: #dee3e2;
+    height: 20px;
+    width: 60%;
+    margin-top: 10px;
+    font-size: 15px;
+    text-align: right;
+    padding: 2px 10px;
+    position: relative;
+`;

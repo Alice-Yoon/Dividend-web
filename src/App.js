@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 // import NavBar from './components/views/commons/NavBar';
 import Home from './components/views/pages/Home/Home';
@@ -9,9 +10,9 @@ import MyPage from './components/views/pages/MyPage/MyPage';
 import NotFound from './components/views/pages/NotFound/NotFound';
 
 
-function App() {
+function App(props) {
   return (
-    <>
+    <div className={props.className}>
     {/* <NavBar /> */}
     <Router>
       <Switch>
@@ -23,8 +24,10 @@ function App() {
         <Route component={NotFound} />
       </Switch>
     </Router>
-    </>
+    </div>
   );
 }
 
-export default App;
+export default styled(App)`
+  background-color: #F5F5F5;
+`;

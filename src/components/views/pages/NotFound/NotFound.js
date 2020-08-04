@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 
 function NotFound() {
     return (
@@ -8,4 +9,6 @@ function NotFound() {
     )
 }
 
-export default NotFound;
+export default styled(NotFound)`
+
+`;
