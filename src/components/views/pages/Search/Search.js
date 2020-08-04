@@ -21,12 +21,13 @@ function Search(props) {
     
 
     const containerStyle = {
+        zIndex: '100',
         position: 'fixed',
         top: '0',
         left: '0',
         width: '100%',
         height: '100%',
-        backgroundColor: 'rgba(0,0,0,0.5)',
+        backgroundColor: 'rgba(0,0,0,0.7)',
         display: `${toggleSearch ? 'flex' : 'none' }`,
         alignItems: 'center',
         justifyContent: 'center',

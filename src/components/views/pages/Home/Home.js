@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import NavBar from '../../commons/NavBar';
 import Header from '../../commons/Header';
 import GridCards from './Section/GridCards';
 // import Calendar from './Section/Calendar';
-import Search from '../Search/Search';
 
 import {gridCardDummy} from '../../../non-views/dummy/gridCardDummy';
 import calendar_dummy from '../../../non-views/img/calendar_dummy.png';
-
-
 // Progress Bar Dummy Data
 const testDataForProgressBar = {goal: 100, current: 60}
 
@@ -20,25 +16,12 @@ function Home(props) {
     // console.log('grid data', gridCardDummy)
 
     const [gridCardData, setGridCardData] = useState([]);
-    const [toggleSearch, setToggleSearch] = useState(false);
-    const [toggleTab, setToggleTab] = useState();
 
     useEffect(() => {
 
         setGridCardData(gridCardDummy);
 
     }, []);
-
-    // console.log("gridCardData", gridCardData)
-
-
-    const openSearchModal = () => {
-        setToggleSearch(true);
-    }
-
-    const closeSearchModal = () => {
-        setToggleSearch(false);
-    }
 
     const onClickTab = (e) => {
         console.log("tab clicked!", e.target.id);
@@ -63,7 +46,6 @@ function Home(props) {
 
     return (
         <div className={props.className}>
-            <NavBar openSearchModal={openSearchModal} Home />
             <Header progressData={testDataForProgressBar} />
             
             {/* Home Page */}
@@ -83,19 +65,16 @@ function Home(props) {
                     )) : null}
                 </section>
             </main>
-
-            <Search toggleSearch={toggleSearch} closeSearchModal={closeSearchModal} />
         </div>
     )
 }
 
 export default styled(Home)`
     /* border: 3px solid aqua; */
-    width: 90%;
-    margin: 0 auto;
+    width: 100%;
+    height: 100%;
     & {
         .mainStyle {
-
             /* border: 1px solid green; */
             display: flex;
             height: 100vh;
