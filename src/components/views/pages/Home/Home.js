@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import NavBar from '../../commons/NavBar';
+
+// 컴포넌트 불러오기 
+import NavBar from '../../commons/NavBar'; //commons에서 가져오는 (공통적으로 )
 import Header from '../../commons/Header';
-import GridCards from './Section/GridCards';
+import GridCards from './Section/GridCards'; //
 import Calendar from './Section/Calendar';
 import Search from '../Search/Search';
 
+// 그리드카드에 들어가는걸 더미로 만듦 
 import {gridCardDummy} from '../../../non-views/dummy/gridCardDummy';
 
-
+// 프로그레스 바 (목표, 지금)
 // Progress Bar Dummy Data
 const testDataForProgressBar = {goal: 100, current: 40}
 
-
+// Home 화면 자체 (컴포넌트 구현 : 함수로)
 function Home() {
 
     // console.log('grid data', gridCardDummy)
@@ -81,12 +84,13 @@ function Home() {
         overflow: 'auto'
     }
 
+    // 변수로 지정하면 대문자로 (css는 -로 연결)
     const gridTabAreaStyle = {
         // border: '1px solid red',
         padding: '10px',
         marginBottom: '10px',
         display: 'flex',
-        justifyContent: 'flex-end',
+        justifyContent: 'flex-end', // flex : 정렬 관련 cf : align-items
         alignItems: 'center'
     }
 
@@ -101,11 +105,17 @@ function Home() {
         fontSize: '14px'
     }
 
+    // function Home을 통해 화면에 보이는거 
     return (
+        // 초록글씨 = 컴포넌트 이름 (위에서 import로 만든거 )
+        // css에서 class 단거 js같은 처리 필요하면 homeStyle 변수로 
+        // (className으로 한다면 밑에 순수 css처럼)
         <div style={homeStyle}>
             <NavBar openSearchModal={openSearchModal} Home />
             <Header progressData={testDataForProgressBar} />
             
+            {/* semantic */}
+            // main : content은 메인 -> 안에는 section (기능은 div와 같음)
             {/* Home Page */}
             <main style={mainStyle}>
                 <section style={leftStyle}>
