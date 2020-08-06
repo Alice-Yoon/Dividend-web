@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function Portfolio() {
+function Calendar() {
     return (
         <div>
-            Portfolio Page
+            Calendar Page
         </div>
     )
 }
 
-export default styled(Portfolio)`
+export default styled(Calendar)`
 
 `;
