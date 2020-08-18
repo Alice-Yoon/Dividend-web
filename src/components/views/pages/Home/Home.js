@@ -115,11 +115,10 @@ function Home() {
             <Header progressData={testDataForProgressBar} />
             
             {/* semantic */}
-            // main : content은 메인 -> 안에는 section (기능은 div와 같음)
+            {/* main : content은 메인 -> 안에는 section (기능은 div와 같음)*/}
             {/* Home Page */}
             <main style={mainStyle}>
                 <section style={leftStyle}>
-                    left
                     <Calendar />
                 </section>
                 <section style={rightStyle}>
