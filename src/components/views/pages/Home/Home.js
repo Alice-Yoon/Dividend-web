@@ -119,7 +119,7 @@ function Home() {
             {/* Home Page */}
             <main style={mainStyle}>
                 <section style={leftStyle}>
-                    <Calendar />
+                    <Calendar/>
                 </section>
                 <section style={rightStyle}>
                     <div style={gridTabAreaStyle}>

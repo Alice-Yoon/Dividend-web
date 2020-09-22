@@ -3,45 +3,38 @@ import React, { useState, useEffect } from 'react';
 import './CalendarCss.css';
 import leftButton from './leftButton.css';
 import rightButton from './rightButton.css';
+import Test from './Test';
  
 // 서버에서 데이터 긁어오면 url에 저장하는게 맞는 방법인가? https://youtu.be/iNkryf_TtZw
 
-function Calendar(props) {  
+// useState : 상태값 변화 (이후 자동 렌더링)
+// useEffect : 렌더링 이후에 처리됨
 
+function Calendar(props) {
     
-    const september = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
-    const newArr = [];
- 
-    // useState는 state값들
-    const [newArr] = useState([]);
-    useEffect(() => {
-        const startSpecificMonth = () => {
-            if(september.length < 28) {
-              newArr.concat([-1, -1]);
-            } else {
-              newArr.concat([-1]);
-            }
-        }
-        startSpecificMonth();
-        console.log("디버깅");
-        console.log(newArr);
-    }, []);
+    const september = [1,2,3,4,5];
+    const [newArr, setNewArr] = useState([]); // 첫번째는 상태, 두번째는 메소드를 반환
 
-    // 페이지가 로딩되면 제일 먼저 실행
-    // useEffect(() => {
-    //   if (september.length < 28) {
-    //     newArr.concat([-1, -1]);
-    //   } else { 
-    //     newArr.concat([-1]);
-    //   }
-    // }, []);
-    // console.log(newArr);
-    // 함수 생성
-    // const startSpecificMonth = () => {
-    // };
-    // 함수 호출 
-    // startSpecificMonth();
- 
+    const startSpecificMonth = () => {
+      if(september.length < 10) {
+          setNewArr([-1, -1]);
+          newArr.concat(september);
+      } else {
+          setNewArr([-1]);
+      }
+    }
+
+    // 렌더링 후 실행 // 두번째 인자 []에 콜백함수를 넣을 수 있다.
+    useEffect( () => {
+        startSpecificMonth();
+        console.log("디버깅1");
+        console.log(newArr);
+    }, [])
+
+    console.log("디버깅2");
+    console.log(newArr);
+    console.log(newArr.length);
+
 
     // const addDate = date => console.log(date);
     // const addDate = date => <div className="dateStyle">{date}</div>
@@ -71,6 +64,8 @@ function Calendar(props) {
     return (
       <div className={props.className}>
         {/* <div>{testDate}</div> */}
+        <Test/>
+
         <div className="head">
           <button><leftButton/></button>
           <span className="title">2020 September</span>
