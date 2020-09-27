@@ -16,7 +16,8 @@ function Calendar(props) {
     let : 재선언 불가능 , 재할당 가능
     const : 재선언 불가능 , 재할당 불가능
     */ 
-    const september = [1,2,3,4,5,6,7,8,9,10]; 
+    //const september = [1,2,3,4,5,6,7,8,9,10];
+    const september = [1,2,3,4,5]; 
     const [newArr, setNewArr] = useState([]); // 첫번째는 상태, 두번째는 메소드를 반환
 
     const startSpecificMonth = () => {
@@ -51,13 +52,19 @@ function Calendar(props) {
     // console.log(newArr.length);
 
 
-    // const addDate = date => console.log(date);
-    const addDate = date => <div className="dateStyle">{date}</div>
-    // const addDate = date => <Test newArr={newArr}/>
+    /* 화살표함수 : (파라미터) => {함수 내용} (ref : https://beomy.tistory.com/19)
+     (1)
+       파라미터가 없는 경우 : () => {statements} 처럼 괄호가 필요하다.
+       파라미터가 1개인 경우 : 파라미터를 ()로 둘러싸지 않아도 된다.
+     (2) 이해쉬운 예제 : https://ko.javascript.info/arrow-functions-basics
+    */
+    const addDate = date => <div className="dateStyle">{date}</div> // ㄱ.
+    // const addDate = date => <Test date={date}/> -> ㄴ. 컴포넌트로 바꿀 경우
 
-    // map : september의 각 날짜를 변수 date로 순회하면서 함수를 실행해 새 배열을 리턴
+    // map : september의 각 날짜를 변수 date로 순회하면서 함수를 실행해 새 배열을 리턴 -> x?
     // 문자열을 리턴하고 싶다면 console.log(date) 대신 '${date}'
-    const septemberDays = september.map(addDate);
+    // 이제 새로운 배열 newArr에 대해 각 날짜를 변수 date로 순회하면서 함수를 실행해야함
+    const septemberDays = newArr.map(addDate); 
 
     // 요일 
     const DayOfTheWeek = (['S','M','T','W','T','F','S'].map(day => <div className="dayStyle">{day}</div>));
