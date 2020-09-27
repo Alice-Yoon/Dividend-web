@@ -11,14 +11,29 @@ import Test from './Test';
 // useEffect : 렌더링 이후에 처리됨
 
 function Calendar(props) {
-    
-    const september = [1,2,3,4,5];
+    /*
+    var : 재선언 가능 (하지만 값 바뀔 우려)
+    let : 재선언 불가능 , 재할당 가능
+    const : 재선언 불가능 , 재할당 불가능
+    */ 
+    const september = [1,2,3,4,5,6,7,8,9,10]; 
     const [newArr, setNewArr] = useState([]); // 첫번째는 상태, 두번째는 메소드를 반환
 
     const startSpecificMonth = () => {
       if(september.length < 10) {
-          setNewArr([-1, -1]);
-          newArr.concat(september);
+          // "js usestate 배열 수정"
+          // https://www.python2.net/questions-267161.htm
+          var ele = []; //재선언은 불가능하지만 재할당은 가능한 let으로 선언
+          for(let i=0; i<2; i++){ // 각 달마다 밀린 날 수 만큼 쓰레기값 -1 넣어줌 
+            ele.push(-1);
+          }
+          ele.push(...september);
+          // Q. 두개의 결과가 다른 이유?
+          // ele.concat(september); -> 처음에 넣은 [-1, -1] 출력
+          // ele = [...september]; -> september인 [1,2,3,4,5] 출력
+          setNewArr(ele);
+
+          // setNewArr([-1, -1]);
       } else {
           setNewArr([-1]);
       }
@@ -27,18 +42,18 @@ function Calendar(props) {
     // 렌더링 후 실행 // 두번째 인자 []에 콜백함수를 넣을 수 있다.
     useEffect( () => {
         startSpecificMonth();
-        console.log("디버깅1");
-        console.log(newArr);
+        // console.log("디버깅1");
+        // console.log(newArr); // 빈 배열 [] (바로 반영X) -> useEffect 나와서 확인해야 함 
     }, [])
 
     console.log("디버깅2");
-    console.log(newArr);
-    console.log(newArr.length);
+    console.log(newArr); // 처음에는 빈 배열 [] -> 그다음 [-1, -1]로 바뀜 
+    // console.log(newArr.length);
 
 
     // const addDate = date => console.log(date);
-    // const addDate = date => <div className="dateStyle">{date}</div>
     const addDate = date => <div className="dateStyle">{date}</div>
+    // const addDate = date => <Test newArr={newArr}/>
 
     // map : september의 각 날짜를 변수 date로 순회하면서 함수를 실행해 새 배열을 리턴
     // 문자열을 리턴하고 싶다면 console.log(date) 대신 '${date}'
@@ -64,7 +79,6 @@ function Calendar(props) {
     return (
       <div className={props.className}>
         {/* <div>{testDate}</div> */}
-        <Test/>
 
         <div className="head">
           <button><leftButton/></button>
@@ -72,9 +86,7 @@ function Calendar(props) {
           <button><rightButton/></button>
         </div>
 
-
-
-       
+ 
         <div className="dayTableStyle">{DayOfTheWeek}</div>
         <div className="dateTableStyle">{septemberDays}</div>
       </div>
