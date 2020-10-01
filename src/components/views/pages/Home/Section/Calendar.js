@@ -20,18 +20,37 @@ function Calendar(props) {
     const september = [1,2,3,4,5]; 
     const [newArr, setNewArr] = useState([]); // 첫번째는 상태, 두번째는 메소드를 반환
 
+    
+    let today = new Date(); //Fri Sep 11 2020 01:11:03 GMT+0900 (대한민국 표준시)
+    let startDay = 0;
+
+    const calculateStartingDay = () => {
+      // console.log("디버깅 시작");
+      // console.log(today); //Fri Sep 11 2020 01:11:03 GMT+0900 (대한민국 표준시)
+      // console.log(today.toLocaleDateString()); //2020. 10. 1.
+      // console.log(today.getDate()); //날짜 1
+      // console.log(today.getDay()); //요일 4
+      // console.log("디버깅 끝");
+
+      // console.log("startDay 시작요일 (해당 월에서) 디버깅");
+      startDay = today.getDay();
+      // console.log(startDay);
+    }
+
+
     const startSpecificMonth = () => {
       if(september.length < 10) {
           // "js usestate 배열 수정"
           // https://www.python2.net/questions-267161.htm
           var ele = []; //재선언은 불가능하지만 재할당은 가능한 let으로 선언
-          for(let i=0; i<2; i++){ // 각 달마다 밀린 날 수 만큼 쓰레기값 -1 넣어줌 
+          for(let i=0; i<startDay; i++){ // 각 달마다 밀린 날 수 만큼 쓰레기값 -1 넣어줌 
             ele.push(-1);
           }
           ele.push(...september);
           // Q. 두개의 결과가 다른 이유?
           // ele.concat(september); -> 처음에 넣은 [-1, -1] 출력
           // ele = [...september]; -> september인 [1,2,3,4,5] 출력
+          // ele = […ele, [1,2,3,4,5]] -> (테스트해보기 [-1,-1,1,2,3,4,5] 예상결과)
           setNewArr(ele);
 
           // setNewArr([-1, -1]);
@@ -42,14 +61,21 @@ function Calendar(props) {
 
     // 렌더링 후 실행 // 두번째 인자 []에 콜백함수를 넣을 수 있다.
     useEffect( () => {
+        calculateStartingDay();
         startSpecificMonth();
         // console.log("디버깅1");
         // console.log(newArr); // 빈 배열 [] (바로 반영X) -> useEffect 나와서 확인해야 함 
     }, [])
 
-    console.log("디버깅2");
+    console.log("디버깅 newArr");
     console.log(newArr); // 처음에는 빈 배열 [] -> 그다음 [-1, -1]로 바뀜 
     // console.log(newArr.length);
+
+
+    // console.log(getYear()); //연도
+    // console.log(getYear()+1); //월(0~11이므로 1더하기)
+    // console.log(getDate()); //날짜
+    // console.log(getDay()); //요일(0dl dlfdydlf)
 
 
     /* 화살표함수 : (파라미터) => {함수 내용} (ref : https://beomy.tistory.com/19)
@@ -72,14 +98,6 @@ function Calendar(props) {
     // 두번째 내부의 div를 컴포넌트로 하면 되지 않을까
     // 어케 행 이름멀로 해 
 
-    let today = new Date(); 
-    // console.log(today); //Fri Sep 11 2020 01:11:03 GMT+0900 (대한민국 표준시)
-    // console.log("디버깅 시작");
-    // console.log(today);
-    // console.log(today.toLocaleDateString());
-    // console.log(today.getDate());
-    // console.log(today.getDay());
-    // console.log("디버깅 끝");
 
 
     // const test = testDate.getMilliseconds();
