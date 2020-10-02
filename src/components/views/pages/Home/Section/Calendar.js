@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import './CalendarCss.css';
-import leftButton from './leftButton.css';
-import rightButton from './rightButton.css';
 import Test from './Test';
  
 // 서버에서 데이터 긁어오면 url에 저장하는게 맞는 방법인가? https://youtu.be/iNkryf_TtZw
@@ -17,12 +15,14 @@ function Calendar(props) {
     const : 재선언 불가능 , 재할당 불가능
     */ 
     //const october = [1,2,3,4,5,6,7,8,9,10];
-    const october = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]; 
+    const october = [1,2,3,4,5]; 
     const [newArr, setNewArr] = useState([]); // 첫번째는 상태, 두번째는 메소드를 반환
-
     
     let today = new Date(); //Fri Sep 11 2020 01:11:03 GMT+0900 (대한민국 표준시)
     let startDay = 0;
+
+    const [curYear, setCurYear] = useState(today.getFullYear());
+    const [curMonth, setCurMonth] = useState(today.getMonth()+1); //Month는 0~11로 나와서 +1하기 
 
     const calculateStartingDay = () => {
       // console.log("디버깅 시작");
@@ -33,7 +33,6 @@ function Calendar(props) {
       // console.log("디버깅 끝");
       startDay = today.getDay(); 
     }
-
 
     const startSpecificMonth = () => {
       if(october.length < 10) {
@@ -87,7 +86,7 @@ function Calendar(props) {
     // 
     const addDate = date => { 
       // console.log(date);
-      if(date == -1){ 
+      if(date === -1){ 
         return <div className="dateStyle">{}</div> // 1일 전은 빈 값
       }
       else {
@@ -106,7 +105,25 @@ function Calendar(props) {
     // 두번째 내부의 div를 컴포넌트로 하면 되지 않을까
     // 어케 행 이름멀로 해 
 
+    const leftButtonClickEvent = () => {
+      if(curMonth === 1) {
+        setCurMonth(12);
+        setCurYear(curYear-1);
+      }
+      else {
+        setCurMonth(curMonth-1);
+      }
+    }
 
+    const rightButtonClickEvent = () => {
+      if(curMonth === 12) {
+        setCurMonth(1);
+        setCurYear(curYear+1);
+      }
+      else {
+        setCurMonth(curMonth+1);
+      }
+    }
 
     // const test = testDate.getMilliseconds();
     return (
@@ -114,11 +131,11 @@ function Calendar(props) {
         {/* <div>{testDate}</div> */}
 
         <div className="head">
-          <button><leftButton/></button>
-          <span className="title">2020 October</span>
-          <button><rightButton/></button>
+          <button onClick={leftButtonClickEvent}>LEFT</button>
+          <p>{curYear}</p>
+          <p>{curMonth}</p>
+          <button onClick={rightButtonClickEvent}>RIGHT</button>
         </div>
-
  
         <div className="dayTableStyle">{DayOfTheWeek}</div>
         <div className="dateTableStyle">{octoberDays}</div>
