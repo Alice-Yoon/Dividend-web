@@ -8,6 +8,8 @@ import Test from './Test';
 // useState : 상태값 변화 (이후 자동 렌더링)
 // useEffect : 렌더링 이후에 처리됨
 
+// js array vs list : https://wayhome25.github.io/cs/2017/04/17/cs-18-1/
+
 function Calendar(props) {
     /*
     var : 재선언 가능 (하지만 값 바뀔 우려)
@@ -20,10 +22,12 @@ function Calendar(props) {
     
     let today = new Date(); //Fri Sep 11 2020 01:11:03 GMT+0900 (대한민국 표준시)
     let startDay = 0;
+    let newStartDay = 0; // LEFT RIGHT 버튼을 눌렀을 때 나타나는 새로운 달의 시작 요일을 newStartDay에 저장
 
     const [curYear, setCurYear] = useState(today.getFullYear());
     const [curMonth, setCurMonth] = useState(today.getMonth()+1); //Month는 0~11로 나와서 +1하기 
 
+    // 시작 요일 계산
     const calculateStartingDay = () => {
       // console.log("디버깅 시작");
       // console.log(today); //Fri Sep 11 2020 01:11:03 GMT+0900 (대한민국 표준시)
@@ -53,6 +57,9 @@ function Calendar(props) {
       } else {
           setNewArr([-1]);
       }
+
+      // LEFT RIGHT 버튼을 눌렀을 때 나타나는 새로운 달의 시작 요일을 newStartDay에 저장
+      newStartDay = newArr.length;
     }
 
     // 렌더링 후 실행 // 두번째 인자 []에 콜백함수를 넣을 수 있다.
@@ -101,9 +108,19 @@ function Calendar(props) {
 
     // 요일 
     const DayOfTheWeek = (['S','M','T','W','T','F','S'].map(day => <div className="dayStyle">{day}</div>));
+ 
+    // 각 달이 얼마나 윤년 등 고려하여 각 달 마다 끝나는 일을 게산
+    const calculateEndingDate = () => {
+      // 윤년 : 4의 배수면 윤년, 근데 100의 배수면 윤년 아님, 근데 또 400의 배수면 윤년 
+      // let isLeapYear = false;
+      let isLeapYear = (curYear % 4 === 0 && curYear % 100 !== 0 || curYear % 400 === 0);
 
-    // 두번째 내부의 div를 컴포넌트로 하면 되지 않을까
-    // 어케 행 이름멀로 해 
+      // 윤년 2월이면 29일까지
+      if(curMonth===2 && isLeapYear) return 29
+      else if(curMonth===2 && !isLeapYear) return 28
+      else if (curMonth in [1,3,5,7,8,10,12]) return 31
+      else return 30
+    }
 
     const leftButtonClickEvent = () => {
       if(curMonth === 1) {
@@ -123,7 +140,10 @@ function Calendar(props) {
       else {
         setCurMonth(curMonth+1);
       }
+
+      // if(calculateEndingDate()===)
     }
+
 
     // const test = testDate.getMilliseconds();
     return (
