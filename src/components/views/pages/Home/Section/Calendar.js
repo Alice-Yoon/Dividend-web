@@ -3,6 +3,10 @@ import React, { useState, useEffect } from 'react';
 import './CalendarCss.css';
 import Test from './Test';
  
+// days : 해당 월의 일수
+// date : 날짜
+// day : 요일
+
 // 서버에서 데이터 긁어오면 url에 저장하는게 맞는 방법인가? https://youtu.be/iNkryf_TtZw
 
 // useState : 상태값 변화 (이후 자동 렌더링)
@@ -26,6 +30,21 @@ function Calendar(props) {
 
     const [curYear, setCurYear] = useState(today.getFullYear());
     const [curMonth, setCurMonth] = useState(today.getMonth()+1); //Month는 0~11로 나와서 +1하기 
+    
+    // 각 달이 얼마나 윤년 등 고려하여 각 달 마다 끝나는 날짜 게산
+    const calculateEndingDate = (curYear, curMonth) => {
+      // 윤년 : 4의 배수면 윤년, 근데 100의 배수면 윤년 아님, 근데 또 400의 배수면 윤년 
+      // let isLeapYear = false;
+      let isLeapYear = (curYear % 4 === 0 && curYear % 100 !== 0 || curYear % 400 === 0);
+
+      // 윤년 2월이면 29일까지
+      if(curMonth===2 && isLeapYear) return 2
+      else if(curMonth===2 && !isLeapYear) return 2
+      else if (curMonth in [1,3,5,7,8,10,12]) return 3
+      else return 1
+    }
+    
+    let days = calculateEndingDate(curYear, curMonth);
 
     // 시작 요일 계산
     const calculateStartingDay = () => {
@@ -34,50 +53,43 @@ function Calendar(props) {
       // console.log(today.toLocaleDateString()); //2020. 10. 1.
       // console.log(today.getDate()); //날짜 1
       // console.log(today.getDay()); //요일 4
-      // console.log("디버깅 끝");
-      startDay = today.getDay(); 
+      // console.log("디버깅 끝")
+
+      // 3일이 토요일(6)이면 3-2=1일, 6-2=4(목요일)
+      let todayDateToFirst = today.getDate()%7 - 1; // 3일에서 1일까지 = 2
+      startDay = today.getDay() - todayDateToFirst; // 6(토요일) - 2 = 4(목요일)
     }
 
-    const startSpecificMonth = () => {
-      if(october.length < 10) {
-          // "js usestate 배열 수정"
-          // https://www.python2.net/questions-267161.htm
-          var ele = []; //재선언은 불가능하지만 재할당은 가능한 let으로 선언
-          for(let i=0; i<startDay; i++){ // 각 달마다 밀린 날 수 만큼 쓰레기값 -1 넣어줌 
-            ele.push(-1);
-          }
-          ele.push(...october);
-          // Q. 두개의 결과가 다른 이유?
-          // ele.concat(october); -> 처음에 넣은 [-1, -1] 출력
-          // ele = [...october]; -> october인 [1,2,3,4,5] 출력
-          // ele = […ele, [1,2,3,4,5]] -> (테스트해보기 [-1,-1,1,2,3,4,5] 예상결과)
-          setNewArr(ele);
+    const startSpecificMonth = (days) => {
+      // "js usestate 배열 수정"
+      // https://www.python2.net/questions-267161.htm
 
-          // setNewArr([-1, -1]);
-      } else {
-          setNewArr([-1]);
+      // 기존 newArr에 추가하면 그전에 초기화해야하므로 tmp 배열 ele 사용해 setNewArr
+      var ele = []; //재선언은 불가능하지만 재할당은 가능한 let으로 선언
+      for(let i=0; i<startDay; i++){ // 각 달마다 밀린 날 수 만큼 쓰레기값 -1 넣어줌 
+        ele.push(-1);
       }
+      for(let i=0; i<days; i++){
+        ele.push(i+1);
+      }
+      // Q. 두개의 결과가 다른 이유?
+      // ele.concat(october); -> 처음에 넣은 [-1, -1] 출력
+      // ele = [...october]; -> october인 [1,2,3,4,5] 출력
+      // ele = […ele, [1,2,3,4,5]] -> (테스트해보기 [-1,-1,1,2,3,4,5] 예상결과)
+      setNewArr(ele);
 
       // LEFT RIGHT 버튼을 눌렀을 때 나타나는 새로운 달의 시작 요일을 newStartDay에 저장
-      newStartDay = newArr.length;
+      startDay = newArr.length;
+      // newStartDay = newArr.length;
     }
 
     // 렌더링 후 실행 // 두번째 인자 []에 콜백함수를 넣을 수 있다.
     useEffect( () => {
-        calculateStartingDay();
-        startSpecificMonth();
-        // console.log("디버깅1");
-        // console.log(newArr); // 빈 배열 [] (바로 반영X) -> useEffect 나와서 확인해야 함 
+      calculateStartingDay();
+      startSpecificMonth(days);
+      // console.log("디버깅1");
+      // console.log(newArr); // 빈 배열 [] (바로 반영X) -> useEffect 나와서 확인해야 함 
     }, [])
-
-    //console.log("디버깅 newArr");
-    //console.log(newArr); // 처음에는 빈 배열 [] -> 그다음 [-1, -1]로 바뀜 
-    
-    // console.log(getYear()); //연도
-    // console.log(getYear()+1); //월(0~11이므로 1더하기)
-    // console.log(getDate()); //날짜
-    // console.log(getDay()); //요일(0dl dlfdydlf)
-
 
     /* 화살표함수 : (파라미터) => {함수 내용} (ref : https://beomy.tistory.com/19)
      (1)
@@ -108,19 +120,6 @@ function Calendar(props) {
 
     // 요일 
     const DayOfTheWeek = (['S','M','T','W','T','F','S'].map(day => <div className="dayStyle">{day}</div>));
- 
-    // 각 달이 얼마나 윤년 등 고려하여 각 달 마다 끝나는 일을 게산
-    const calculateEndingDate = () => {
-      // 윤년 : 4의 배수면 윤년, 근데 100의 배수면 윤년 아님, 근데 또 400의 배수면 윤년 
-      // let isLeapYear = false;
-      let isLeapYear = (curYear % 4 === 0 && curYear % 100 !== 0 || curYear % 400 === 0);
-
-      // 윤년 2월이면 29일까지
-      if(curMonth===2 && isLeapYear) return 29
-      else if(curMonth===2 && !isLeapYear) return 28
-      else if (curMonth in [1,3,5,7,8,10,12]) return 31
-      else return 30
-    }
 
     const leftButtonClickEvent = () => {
       if(curMonth === 1) {
@@ -130,22 +129,29 @@ function Calendar(props) {
       else {
         setCurMonth(curMonth-1);
       }
+
+      days = calculateEndingDate(curYear, curMonth);
+      startSpecificMonth(days);
     }
 
     const rightButtonClickEvent = () => {
-      if(curMonth === 12) {
-        setCurMonth(1);
-        setCurYear(curYear+1);
-      }
-      else {
-        setCurMonth(curMonth+1);
-      }
+      console.log("바뀌기 전 : ", curYear, curMonth); 
 
-      // if(calculateEndingDate()===)
+      if(curMonth === 12) {
+        setCurMonth(prevCurMonth => 1);
+        setCurYear(prevCurYear => curYear+1);
+      }
+      else setCurMonth(prevCurMonth => curMonth+1);
+
+      console.log("바뀌기 후 : ", curYear, curMonth);
+
+      days = calculateEndingDate(curYear, curMonth);
+      // console.log("오른쪽! RIGHT button : ", curYear, curMonth, days);
+      startSpecificMonth(days);
     }
 
+    console.log("바뀌기 괄호나와서 : ", curYear, curMonth);
 
-    // const test = testDate.getMilliseconds();
     return (
       <div className={props.className}>
         {/* <div>{testDate}</div> */}
