@@ -1,16 +1,15 @@
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react'; 
 
-function Test({newArr}){
+function Test({date, today}){
 
-    // newArr이 concat 전으로 넘어감!! (고치기)
+    // 각 newArr의 요소마다 Test컴포넌트가 실행됨
+    console.log(date);
+    console.log(today);
 
-
-    // console.log("디버깅/////////////");
-    // console.log(newArr);
     return(
         <div>
-            <div>ㅛㄹ료료료료</div>
+            <div>{date}</div>
         </div>
     )
 }

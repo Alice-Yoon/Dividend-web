@@ -16,8 +16,8 @@ function Calendar(props) {
     let : 재선언 불가능 , 재할당 가능
     const : 재선언 불가능 , 재할당 불가능
     */ 
-    //const september = [1,2,3,4,5,6,7,8,9,10];
-    const september = [1,2,3,4,5]; 
+    //const october = [1,2,3,4,5,6,7,8,9,10];
+    const october = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]; 
     const [newArr, setNewArr] = useState([]); // 첫번째는 상태, 두번째는 메소드를 반환
 
     
@@ -31,25 +31,22 @@ function Calendar(props) {
       // console.log(today.getDate()); //날짜 1
       // console.log(today.getDay()); //요일 4
       // console.log("디버깅 끝");
-
-      // console.log("startDay 시작요일 (해당 월에서) 디버깅");
-      startDay = today.getDay();
-      // console.log(startDay);
+      startDay = today.getDay(); 
     }
 
 
     const startSpecificMonth = () => {
-      if(september.length < 10) {
+      if(october.length < 10) {
           // "js usestate 배열 수정"
           // https://www.python2.net/questions-267161.htm
           var ele = []; //재선언은 불가능하지만 재할당은 가능한 let으로 선언
           for(let i=0; i<startDay; i++){ // 각 달마다 밀린 날 수 만큼 쓰레기값 -1 넣어줌 
             ele.push(-1);
           }
-          ele.push(...september);
+          ele.push(...october);
           // Q. 두개의 결과가 다른 이유?
-          // ele.concat(september); -> 처음에 넣은 [-1, -1] 출력
-          // ele = [...september]; -> september인 [1,2,3,4,5] 출력
+          // ele.concat(october); -> 처음에 넣은 [-1, -1] 출력
+          // ele = [...october]; -> october인 [1,2,3,4,5] 출력
           // ele = […ele, [1,2,3,4,5]] -> (테스트해보기 [-1,-1,1,2,3,4,5] 예상결과)
           setNewArr(ele);
 
@@ -67,11 +64,9 @@ function Calendar(props) {
         // console.log(newArr); // 빈 배열 [] (바로 반영X) -> useEffect 나와서 확인해야 함 
     }, [])
 
-    console.log("디버깅 newArr");
-    console.log(newArr); // 처음에는 빈 배열 [] -> 그다음 [-1, -1]로 바뀜 
-    // console.log(newArr.length);
-
-
+    //console.log("디버깅 newArr");
+    //console.log(newArr); // 처음에는 빈 배열 [] -> 그다음 [-1, -1]로 바뀜 
+    
     // console.log(getYear()); //연도
     // console.log(getYear()+1); //월(0~11이므로 1더하기)
     // console.log(getDate()); //날짜
@@ -84,13 +79,26 @@ function Calendar(props) {
        파라미터가 1개인 경우 : 파라미터를 ()로 둘러싸지 않아도 된다.
      (2) 이해쉬운 예제 : https://ko.javascript.info/arrow-functions-basics
     */
-    const addDate = date => <div className="dateStyle">{date}</div> // ㄱ.
-    // const addDate = date => <Test date={date}/> -> ㄴ. 컴포넌트로 바꿀 경우
+    // const addDate = date => <div className="dateStyle">{date}</div> // ㄱ.
 
-    // map : september의 각 날짜를 변수 date로 순회하면서 함수를 실행해 새 배열을 리턴 -> x?
+    // .map() 메소드에서 {}중괄호를 사용할때 return 사용하기
+    // .map() 메소드 사용 시 요소를 ()소괄호로 묶기 
+    // ex) .map(({id, text}) => (<TodoItem/>))
+    // 
+    const addDate = date => { 
+      // console.log(date);
+      if(date == -1){ 
+        return <div className="dateStyle">{}</div> // 1일 전은 빈 값
+      }
+      else {
+        return <Test date={date} today={today}/> // -> ㄴ. 컴포넌트로 바꿀 경우
+      }
+    }
+
+    // map : october의 각 날짜를 변수 date로 순회하면서 함수를 실행해 새 배열을 리턴 -> x?
     // 문자열을 리턴하고 싶다면 console.log(date) 대신 '${date}'
     // 이제 새로운 배열 newArr에 대해 각 날짜를 변수 date로 순회하면서 함수를 실행해야함
-    const septemberDays = newArr.map(addDate); 
+    const octoberDays = newArr.map(addDate); 
 
     // 요일 
     const DayOfTheWeek = (['S','M','T','W','T','F','S'].map(day => <div className="dayStyle">{day}</div>));
@@ -107,13 +115,13 @@ function Calendar(props) {
 
         <div className="head">
           <button><leftButton/></button>
-          <span className="title">2020 September</span>
+          <span className="title">2020 October</span>
           <button><rightButton/></button>
         </div>
 
  
         <div className="dayTableStyle">{DayOfTheWeek}</div>
-        <div className="dateTableStyle">{septemberDays}</div>
+        <div className="dateTableStyle">{octoberDays}</div>
       </div>
       
     )
